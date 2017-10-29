@@ -29,7 +29,7 @@ public class Segmentation_ansj {
 		Forest forest = Library.makeForest(localurl+"/workspace/robot-master/org.xjtusicd3.partner/library/computer.dic");
 		Result terms = ToAnalysis.parse(text,forest);
 //		Result terms = ToAnalysis.parse(text);
-		System.out.println("获取当前路径"+localurl);
+		System.out.println("获取当前路径"+forest);
 //		System.out.println(StopLibrary.get());
 //		System.out.println(StopLibrary.get("stop"));
 		Result result = terms.recognition(StopLibrary.get());

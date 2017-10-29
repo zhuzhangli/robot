@@ -99,21 +99,27 @@ public class CommentController {
 	@RequestMapping(value={"/saveCommunityComment"},method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="text/html;charset=UTF-8")
 	@SystemControllerLog(description = "社区问题添加评论的回复")
 	public String saveCommunityComment(HttpServletRequest request,HttpSession session){
-		//String useremail = (String) session.getAttribute("UserEmail"); 
 		String username = (String) session.getAttribute("UserName");
 		String questionId = request.getParameter("questionId");
 		String answerId = request.getParameter("answerId");
 		String content = request.getParameter("content");
 		JSONObject jsonObject = new JSONObject();
+		/**
+		 * 用户名为空，返回value = 0；
+		 * 用户未提交过回复，将回复存入数据库，并返回value = 1；
+		 * 用户重复提交回复，返回value = 2
+		 * */
 		if (username==null) {
 			jsonObject.put("value", "0");
 			String result = JsonUtil.toJsonString(jsonObject); 
 			return result;
 		}else {
+			//获取登录用户信息
 			List<UserPersistence> userPersistences = UserHelper.getUserInfo(username);
-			//判断回复是否重复提交
+			//判断用户(userId)对问题答案(Id为answerId)的回复是否重复提交
 			List<CommentPersistence> commentPersistences = CommentHelper.question2_getComment2(answerId, userPersistences.get(0).getUSERID(), content,questionId);
 			if (commentPersistences.size()==0) {
+				//保存用户评论
 				CommentService.saveCommunityComment(userPersistences.get(0).getUSERID(), questionId, content, answerId);
 				jsonObject.put("value", "1");
 				String result = JsonUtil.toJsonString(jsonObject); 

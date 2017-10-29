@@ -128,9 +128,14 @@ public class UserController {
 		//zzl_获得前台用户名或密码
 		String nameOrEmail = userView.getNameOrEmail();
 		String password = userView.getUserPassword();
-		//boolean islogin = UserService.isLogin(nameOrEmail, password);
+		
+		//获取登录用户信息
 		List<UserPersistence> loginList = UserService.loginUser(nameOrEmail, password);
 		
+		/*
+		 * 用户名/邮箱 或密码错误，返回登录页面重新登录
+		 * 正确跳转至urlPath所指向页面
+		 */
 		if (loginList.size()==0) {
 			return "redirect:login.html";
 		}else {

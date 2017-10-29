@@ -49,8 +49,8 @@
 				<div id="quickAsk">
 					<p>有问题，来问吧~</p>
 					<form onsubmit="return false;">
-						<input type="text" placeholder="输入问题，如“如何升级至Windows 10？”">
-						<button>提交</button>
+						<!--  <input type="text" placeholder="输入问题，如“如何升级至Windows 10？”">
+						<button>提交</button>-->
 					</form>
 					<div class="wrapper-demo">
 						<div id="dd" class="wrapper-dropdown-3" tabindex="1">
@@ -187,7 +187,9 @@
             
             <div class="rightBarWrapper">
             	<div id="mainR">
-            	<div style="height:85px;"><button class="fm_ele" id="ask" fm-type="button" fm-name="button_ask" fm-operation="click" fm-zoon="header_area" onclick="questionForm();">提新问题</button></div>
+            	<div style="height:85px;">
+            		<button class="fm_ele" id="ask" fm-type="button" fm-name="button_ask" fm-operation="click" fm-zoon="header_area" onclick="questionForm();">提新问题</button>
+            	</div>
 				<div><a href="http://iknow.lenovo.com/"><img id="wenba" src="images/iknow.png"></a></div>
 				<div id="topic">
 					<div id="topicTitle"><img src="images/topic.png" ><a onclick="getClassify()">话题</a></div>

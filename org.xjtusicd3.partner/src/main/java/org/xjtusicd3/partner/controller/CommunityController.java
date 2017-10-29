@@ -137,15 +137,18 @@ public class CommunityController {
 	@RequestMapping(value="question2",method=RequestMethod.GET)
 	@SystemControllerLog(description = "社区具体问题显示")
 	public ModelAndView question2(HttpServletRequest request,HttpServletResponse response,String q,HttpSession session){
-		//String useremail = (String) session.getAttribute("UserEmail");
 		String username = (String) session.getAttribute("UserName");
 		ModelAndView mv = new ModelAndView("question2");
+		//获取用户信息
 		List<UserPersistence> userPersistences = UserHelper.getUserInfo(username);
-		//System.out.println("userPersistences:"+userPersistences.get(0).getUSERNAME());
 		
+		//获取questionId = q 的问题详情
 		List<CommunityQuestionPersistence> communityQuestionPersistences = CommunityQuestionHelper.question2_getCommunity(q);
+		
+		//获取具体问题的分类信息
 		List<ClassifyPersistence> classifyPersistences = ClassifyHelper.faq2_classify(communityQuestionPersistences.get(0).getCLASSIFYID());
 		
+		//判断有无最佳答案
 		List<Question2_CommunityView> question2_CommunityViews = CommunityService.question2_CommunityViews_best(username,communityQuestionPersistences.get(0).getCOMMUNITYQUESTIONID());
 		//System.out.println("有无最佳答案:"+question2_CommunityViews.size());
 		
@@ -238,26 +241,37 @@ public class CommunityController {
 	@RequestMapping(value={"/saveReplyQuestion"},method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="text/plain;charset=UTF-8")
 	@SystemControllerLog(description = "社区问题回复")
 	public String saveReplyQuestion(HttpServletRequest request,HttpSession session){
-		//String useremail = (String) session.getAttribute("UserEmail");
 		String username = (String) session.getAttribute("UserName");
 		JSONObject jsonObject = new JSONObject();
 		String url = request.getParameter("url");
+		/**
+		 * 当用户名为空，返回value = 0;
+		 * 当用户名不空，评论未重复时，返回value = 1；
+		 * 当用户名不空，评论重复时，返回value = 2；
+		 */
 		if (username==null) {
 			jsonObject.put("value", "0");
 			String result = JsonUtil.toJsonString(jsonObject);
 			return result;
 		}else {
+			//获取问题评论及问题号
 			String content = request.getParameter("content");
 			String questionId = request.getParameter("questionId");
+			
+			//获取登录用户信息
 			List<UserPersistence> userPersistences = UserHelper.getUserInfo(username);
+			
+			//判断评论是否重复提交
 			List<CommunityAnswerPersistence> communityAnswerPersistences = CommunityAnswerHelper.question_IsCommunityAnswer(userPersistences.get(0).getUSERID(), content, questionId);
 			if (communityAnswerPersistences.size()==0) {
+				//评论未重复
 				CommunityService.saveReplyQuestion(username, content, questionId);
 				jsonObject.put("value", "1");
 				jsonObject.put("url", url);
 				String result = JsonUtil.toJsonString(jsonObject);
 				return result;
 			}else {
+				//评论重复
 				jsonObject.put("value", "2");
 				jsonObject.put("url", url);
 				String result = JsonUtil.toJsonString(jsonObject);

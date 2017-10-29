@@ -978,10 +978,6 @@ public class UserService {
 		}
 	}
 
-
-
-
-
 	/**
 	 * author:zzl
 	 * abstract:获取登录用户信息
@@ -993,9 +989,6 @@ public class UserService {
 	}
 
 
-
-
-
 	/**
 	 * author:zzl
 	 * abstract:获取登录用户信息
@@ -1005,19 +998,10 @@ public class UserService {
 	 */
 	public static List<UserPersistence> loginUser(String nameOrEmail, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		password = MD5.EncoderByMd5(password);
+		//获取登录用户信息
 		List<UserPersistence> loginUser = UserHelper.loginUser(nameOrEmail, password);
 		return loginUser;
 	}
-
-
-
-
-
-//
-//	public void addUser(String userName, String password) {
-//		UserHelper.addUser(userName,password);
-//		
-//	}
 
 
 

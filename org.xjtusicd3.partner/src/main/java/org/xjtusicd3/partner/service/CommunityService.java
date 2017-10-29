@@ -356,6 +356,9 @@ public class CommunityService {
 	 */
 	public static List<Question2_CommunityView> question2_CommunityViews_best(String username,String questionId){
 		List<Question2_CommunityView> question2_CommunityViews = new ArrayList<Question2_CommunityView>();
+		
+		//查找COMMUNITYQUESTIONID=questionId 且 ISBESTANSWER='1'的答案_即最佳答案
+		//	！！！只可能有一个最佳答案，故此处可省去for循环
 		List<CommunityAnswerPersistence> communityAnswerPersistences = CommunityAnswerHelper.question_CommunityAnswer_best(questionId);
 		for(CommunityAnswerPersistence communityAnswerPersistence:communityAnswerPersistences){
 			Question2_CommunityView question2_CommunityView = new Question2_CommunityView();
@@ -370,18 +373,22 @@ public class CommunityService {
 			
 			question2_CommunityView.setTime(communityAnswerPersistence.getTIME());
 			
-			//查看评论数
+			//查看问题答案的评论数_一次显示5条信息
 			List<CommentPersistence> commentPersistences = CommentHelper.question2_getComment_Limit(communityAnswerPersistence.getCOMMUNITYQUESTIONID(), communityAnswerPersistence.getCOMMUNITYANSWERID());
+			//查看问题某答案的总评论数
 			List<CommentPersistence> commentPersistences2 = CommentHelper.question2_getComment(communityAnswerPersistence.getCOMMUNITYQUESTIONID(), communityAnswerPersistence.getCOMMUNITYANSWERID());
 			for(CommentPersistence commentPersistence:commentPersistences){
 				Question2_CommunityReplayView question2_CommunityReplayView = new Question2_CommunityReplayView();
+				//获取问题答案回复用户信息
 				List<UserPersistence> userPersistences2 = UserHelper.getEmail_id(commentPersistence.getUSERID());
 				question2_CommunityReplayView.setUserName(userPersistences2.get(0).getUSERNAME());
 				question2_CommunityReplayView.setUserImage(userPersistences2.get(0).getAVATAR());
 				question2_CommunityReplayView.setTime(commentPersistence.getCOMMENTTIME());
 				question2_CommunityReplayView.setCommunity(commentPersistence.getCOMMENTCONTENT());
 				question2_CommunityReplayView.setCommentId(commentPersistence.getCOMMENTID());
+				//如果回复人不为空
 				if (commentPersistence.getTOUSERID()!=null) {
+					//获取此用户回复的用户信息
 					List<UserPersistence> userPersistences3 = UserHelper.getEmail_id(commentPersistence.getTOUSERID());
 					question2_CommunityReplayView.setTouserName("@"+userPersistences3.get(0).getUSERNAME());
 				}
@@ -389,8 +396,11 @@ public class CommunityService {
 			}
 			String communityNumber = Integer.toString(commentPersistences2.size());
 			question2_CommunityView.setCommunityNumber(communityNumber);
+			//获取最佳答案点赞数
 			List<AgreePersistence> agreePersistences = AgreeHelper.getAgree_id(communityAnswerPersistence.getCOMMUNITYANSWERID());
 			String likeNumber = Integer.toString(agreePersistences.size());
+			
+			//查看username对communityanswerId的点赞
 			List<AgreePersistence> agreePersistences2 = AgreeHelper.getAgree(username, communityAnswerPersistence.getCOMMUNITYANSWERID());
 			//判断是否点赞
 			if (agreePersistences2.size()==0) {
@@ -503,17 +513,23 @@ public class CommunityService {
 		communityAnswerPersistence.setTIME(time);
 		List<UserPersistence> userPersistences = UserHelper.getUserInfo(username);
 		communityAnswerPersistence.setUSERID(userPersistences.get(0).getUSERID());
-		//判断是否为自己回复
-	//	List<CommunityAnswerPersistence> communityAnswerPersistences = CommunityAnswerHelper.question_CommunityAnswer(questionId);
+		
+		//查看问题号为	questionId 的问题信息
 		List<CommunityQuestionPersistence> communityQuestionPersistences = CommunityQuestionHelper.CommunityQuestion(questionId);
 		int isnotice = 0;
+			
+		/*
+		 * 判断是否为自己回复
+		 * 如果当前登录用户id = 问题号为questionId的用户id，则isnotice = 0;  即自己回复自己置isnotice = 0;
+		 * 不是自己回复自己，isnotice = 1；
+		 */
 		if ((userPersistences.get(0).getUSERID()).equals(communityQuestionPersistences.get(0).getUSERID())) {
 			isnotice = 0;
 		}else {
 			isnotice = 1;
 		}
 		communityAnswerPersistence.setISNOTICE(isnotice);
-		System.out.println("执行结束");
+		//question2回复保存至数据库
 		CommunityAnswerHelper.addComment(communityAnswerPersistence);
 	}
 }

@@ -142,4 +142,8 @@ public interface CommentPersistenceMapper extends IBaseDao<CommentPersistence, S
 	 */
 	@Select("SELECT * FROM TBL_Comment WHERE FAQQUESTIONID=#{0}")
 	List<CommentPersistence> commentInfo(String faqquestionId);
+	/*
+	 * zzl_查找问题答案ID为answerId的用户信息_2017年10月29日16:36:06
+	 */
+	
 }

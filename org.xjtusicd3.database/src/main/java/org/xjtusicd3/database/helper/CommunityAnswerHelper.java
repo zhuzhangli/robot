@@ -76,7 +76,6 @@ public class CommunityAnswerHelper{
 		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
 		CommunityAnswerPersistenceMapper mapper = session.getMapper(CommunityAnswerPersistenceMapper.class);
 		mapper.save(communityAnswerPersistence);
-		System.out.println("执行成功");
 		session.close();
 	}
 	//查看用户被点赞数量
@@ -123,4 +122,5 @@ public class CommunityAnswerHelper{
 		session.close();
 		return list;
 	}
+
 }

@@ -55,10 +55,12 @@ public class RobotService {
 				}else {
 					robot_Chat robot_Chat = new robot_Chat();
 					robot_Chat.setQuestionId(robot_Chats.get(i).getQuestionId());
+					System.out.println("robot_Chats.get(i).getQuestionId():"+robot_Chats.get(i).getQuestionId());
 					List<QuestionPersistence> questionPersistences = QuestionHelper.faq3_faqcontent(robot_Chats.get(i).getQuestionId());
 					robot_Chat.setQuestion(questionPersistences.get(0).getFAQTITLE());
 					list.add(robot_Chat);
 				}
+				System.out.println("循环次数："+i);
 			}
 		}else {
 			robot_Chats = ListSort(robot_Chats);

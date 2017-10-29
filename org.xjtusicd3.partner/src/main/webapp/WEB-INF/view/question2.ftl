@@ -243,7 +243,7 @@
 						<input type="text" placeholder="添加您的答案" id="input_answer" onclick="showeditor()" style="display:block">
 						
 						<div id="answer-ueditor" class="edui-default" style="width:645px;font-size:14px;display:none">
-							<script id="editor" name="content" type="text/plain"></script>
+							<script id="editor" type="text/plain" style="width:650px;height:300px;margin-left:34px;margin-top:20px;"></script>
 						</div>
 						
 						<div class="submitDiv" style="display:none"><button id="answerSubmit" onclick="replyQuestion()">提交</button></div>
