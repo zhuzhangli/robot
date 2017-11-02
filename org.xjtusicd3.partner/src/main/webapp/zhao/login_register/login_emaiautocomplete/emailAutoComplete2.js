@@ -191,12 +191,12 @@ $("#login").click(function(){
 			type:"POST",
 			url:"/org.xjtusicd3.partner/saveLogin.html",
 			data:{
-				"email":$("#me2").val(),
+				"nameOrEmail":$("#me2").val(),
 				"password":$("#password2").val()
 			},
 			dataType:"json",
 			success:function(data){
-				if(data=="1"){
+				if(data=="redirect:login.html"){
 					$(".spa5").text('帐号或密码错误');
 				}
 			}
@@ -205,7 +205,7 @@ $("#login").click(function(){
 		return true;
 	}else{
 		if($("#me2").val()==""){
-			$(".spa5").text('请填写注册的邮箱');
+			$(".spa5").text('请填写注册的用户名/邮箱');
 		}
 
 		if($("#password2").val()==""){

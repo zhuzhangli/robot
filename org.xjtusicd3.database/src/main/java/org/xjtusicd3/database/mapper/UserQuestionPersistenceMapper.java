@@ -8,13 +8,14 @@ import org.apache.ibatis.annotations.Select;
 import org.xjtusicd3.database.logic.IBaseDao;
 import org.xjtusicd3.database.model.ClassifyPersistence;
 import org.xjtusicd3.database.model.QuestionPersistence;
+import org.xjtusicd3.database.model.RobotAnswerPersistence;
 import org.xjtusicd3.database.model.UserPersistence;
 import org.xjtusicd3.database.model.UserQuestionPersistence;
 
 public interface UserQuestionPersistenceMapper extends IBaseDao<UserQuestionPersistence, String>
 {
 	//zpz_获取用户问题
-		@Select("SELECT * FROM TBL_UserQuestion")
+		@Select("SELECT * FROM TBL_UserQuestion ORDER BY QUESTIONTIME DESC")
 		List<UserQuestionPersistence> getUserQuestion();
 		
 	//zpz _find userQuestion by UserQuestionId
@@ -30,6 +31,22 @@ public interface UserQuestionPersistenceMapper extends IBaseDao<UserQuestionPers
 				+ " VALUES (#{0},#{1},#{2},#{3},#{4})")
 		void addUserQuestion(String userquestionid, String questiontitle, String questiontime, int isFaq,
 				String userid);
+		
+		//获取用户提问问题Id
+		@Select("SELECT USERQUESTIONID FROM TBL_UserQuestion WHERE USERID=#{0} AND QUESTIONTITLE=#{1} ORDER BY QUESTIONTIME DESC LIMIT 1")
+		String queationUserId(String userId, String comment);
+
+		//查看用户提问问题标题
+		@Select("SELECT QUESTIONTITLE FROM TBL_UserQuestion WHERE USERQUESTIONID=#{0} ")
+		String getNameById(String questionId);
+		
+		//获得用户满意度
+		@Select("SELECT * FROM TBL_RobotAnswer WHERE USERQUESTIONID=#{0} ")
+		List<RobotAnswerPersistence> getUserSaticfaction(String userquestionid);
+
+		//获取应答表中问题对应的知识库答案id
+		@Select("SELECT FAQANSWERID FROM TBL_RobotAnswer WHERE USERQUESTIONID=#{0} ")
+		String getFaqAnswerIdByQuestionId(String userQuestionId);
 		
 		
 }

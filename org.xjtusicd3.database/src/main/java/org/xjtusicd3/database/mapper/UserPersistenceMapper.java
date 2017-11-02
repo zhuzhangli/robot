@@ -13,16 +13,31 @@ public interface UserPersistenceMapper extends IBaseDao<UserPersistence, String>
 	/*
 	 * zyq_login_ajax_注册
 	 */
-	@Insert("INSERT INTO TBL_User(TBL_User.USERID,TBL_User.USEREMAIL,TBL_User.USERPASSWORD,TBL_User.USERNAME,TBL_User.USERSTATE,TBL_User.VERIFICATIONCODE,TBL_User.TIMEREMARKS,TBL_User.AVATAR) VALUES (#{0},#{1},#{2},#{3},#{4},#{5},#{6},#{7})")
-	public void login_register(String userid,String email,String password,String username,int userstate,String identification_number,String time_stamp,String userimage);
+	@Insert("INSERT INTO TBL_User(TBL_User.USERID,TBL_User.USERNAME,TBL_User.USERPASSWORD,TBL_User.USERSTATE,TBL_User.CREATETIME,TBL_User.AVATAR) VALUES (#{0},#{1},#{2},#{3},#{4},#{5})")
+	public void login_register(String userid,String name,String password,int userstate,String createTime,String userimage);
+	
 	//zyq_校验邮箱是否被注册
 	@Select("SELECT * FROM TBL_User WHERE USEREMAIL=#{0}")
 	List<UserPersistence> getEmail(String useremail);
+	
+	/**
+	 * author:zzl
+	 * abstract:判断用户名是否被注册
+	 * data:2017年10月30日12:43:06
+	 */
+	@Select("SELECT * FROM TBL_User WHERE USERNAME=#{0}")
+	public List<UserPersistence> getName(String name);
+	
+	
+	
+	
 	@Select("SELECT * FROM TBL_User WHERE USERNAME=#{0}")
 	List<UserPersistence> getEmail_name(String username);
 	@Select("SELECT * FROM TBL_User WHERE USERID=#{0}")
 	List<UserPersistence> getEmail_id(String userid);
-	@Select("SELECT * FROM TBL_User WHERE USEREMAIL=#{0} AND USERPASSWORD=#{1}")
+	
+	//zzl_后台管理员登录_2017年10月31日09:17:13
+	@Select("SELECT * FROM TBL_User WHERE USEREMAIL=#{0} AND USERPASSWORD=#{1} AND ROLEID = '168ab2db-ea09-44d9-bf50-af9879cb43cb'")
 	List<UserPersistence> getEmail2(String param1,String param2);
 	@Select("SELECT * FROM TBL_User WHERE USEREMAIL=#{0} AND VERIFICATIONCODE=#{1}")
 	List<UserPersistence> getEmail3(String param1,String param2);
@@ -121,5 +136,6 @@ public interface UserPersistenceMapper extends IBaseDao<UserPersistence, String>
 	 */
 	@Select("SELECT * FROM TBL_User WHERE (USERNAME=#{0} OR USEREMAIL=#{0}) AND USERPASSWORD=#{1}")
 	public List<UserPersistence> loginUser(String nameOrEmail, String password);
+	
 
 }

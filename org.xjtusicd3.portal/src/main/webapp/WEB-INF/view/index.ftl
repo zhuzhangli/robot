@@ -44,7 +44,7 @@
                     </div>
                 </li>
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                    <span class="ng-scope">管理员</span>
+                    <span class="ng-scope"><li class="loginLinkLi" id="userNameText">您好：${UserName}</li></span>
                 </li>
                 <li>
                     <a class="J_menuItem" href="elementindex.html">

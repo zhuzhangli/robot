@@ -11,10 +11,17 @@ public class ProblemindexView
 	private String problemAnswerId;
 	private String problemAnswer;
 	private String problemAnswerTime;
+	private String problemAnswerUser;
+	
+	
 	//zzl_2017年10月11日15:27:21
 	private String isanswer;
 	
 	
+	
+	
+	
+
 	public String getIsanswer() {
 		return isanswer;
 	}
@@ -55,7 +62,7 @@ public class ProblemindexView
 	{
 		this.problemAnswerUser = problemAnswerUser;
 	}
-	private String problemAnswerUser;
+	
 	public String getProblemId()
 	{
 		return problemId;

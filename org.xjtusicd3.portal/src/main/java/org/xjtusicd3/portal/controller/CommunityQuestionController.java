@@ -24,11 +24,16 @@ public class CommunityQuestionController {
 	public ModelAndView getCommunityQuestion()
 	{
 		ModelAndView mv = new ModelAndView("problemindex");
+		
+		//zzl_前台社区问题已解决
 		List<ProblemindexView> communityquestionlist = CommunityQuestionService.problemindexViews();
 		mv.addObject("cqlist",communityquestionlist);
+		mv.addObject("resolvedCounts", communityquestionlist.size());
+		
 		//zzl_2017年10月11日19:59:49_未解决
 		List<ProblemindexView> communityquestionlist2 = CommunityQuestionService.problemindexViews2();
 		mv.addObject("cqlist1",communityquestionlist2);
+		mv.addObject("unResolvedCounts", communityquestionlist2.size());
 		return mv;
 		
 	}
@@ -50,9 +55,11 @@ public class CommunityQuestionController {
 	 * data:2017年10月12日17:46:34
 	 */
 	@RequestMapping(value="showProblemInfo",method=RequestMethod.GET)
-    public ModelAndView  showProblemInfo(){
- 	   ModelAndView mv=new ModelAndView("showProblemInfo");
- 	   return mv;
+    public ModelAndView  showProblemInfo(String u){
+		List<ProblemindexView> problemindexViews = CommunityQuestionService.getCommunityQuestionById(u);
+		ModelAndView modelAndView = new ModelAndView("showProblemInfo");
+		modelAndView.addObject("problemList", problemindexViews);
+		return modelAndView;
     }
 	
 }

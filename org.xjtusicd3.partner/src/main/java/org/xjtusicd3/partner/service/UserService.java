@@ -98,26 +98,31 @@ public class UserService {
 	/*
 	 * login_ajax_注册
 	 */
-	public static void login_register(String email,String password) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+	public static void login_register(String name,String password) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+		System.out.println("注册的用户名是："+name);
 		UUID uuid = UUID.randomUUID();
-		String identification_number =genCodes(8, 1).get(0);
+//		String identification_number =genCodes(8, 1).get(0);
     	Date date=new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMddHHmmss");
-        String time_stamp = format.format(date);
-        String time = format2.format(date);
-		String username = "会员"+ time + genCodes(6, 1).get(0);
-		MD5 md5 = new MD5();
-		password = md5.EncoderByMd5(password);
+   //     SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMddHHmmss");
+        String createTime = format.format(date);
+   //     String time = format2.format(date);
+	//	String username = "会员"+ time + genCodes(6, 1).get(0);
+		//MD5 md5 = new MD5();
+		password = MD5.EncoderByMd5(password);
 		//发送邮件验证信息
-		ValidateEmail validateEmail = new ValidateEmail();
-		try {
-			validateEmail.validateEmail(email,username,identification_number);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		ValidateEmail validateEmail = new ValidateEmail();
+//		try {
+//			validateEmail.validateEmail(email,username,identification_number);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		String userimage = "images/user.png";
-		UserHelper.login_register(uuid.toString(),email,password,username,0,identification_number,time_stamp,userimage);
+		/*
+		 * USERSTATE = 0表明用户待审核
+		 * USERSTATE = 1通过审核
+		 */
+		UserHelper.login_register(uuid.toString(),name,password,0,createTime,userimage);
 	}
 	//随机产生一个length位的字母+数字
     public static List<String> genCodes(int length,long num){
@@ -359,15 +364,15 @@ public class UserService {
 	 * zyq_personal2_关注
 	 */
 	public static void savePay(String userId, String touserId) {
-		PayPersistence payPersistence = new PayPersistence();
-		payPersistence.setPAYID(UUID.randomUUID().toString());
-		payPersistence.setPAYUSERID(userId);
-		payPersistence.setBEPAYUSERID(touserId);
+//		PayPersistence payPersistence = new PayPersistence();
+//		payPersistence.setPAYID(UUID.randomUUID().toString());
+//		payPersistence.setPAYUSERID(userId);
+//		payPersistence.setBEPAYUSERID(touserId);
 		Date date=new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = format.format(date);
-        payPersistence.setTIME(time);
-        PayHelper.savePay(payPersistence);
+       // payPersistence.setTIME(time);
+        PayHelper.savePay(UUID.randomUUID().toString(),userId,touserId,time);
 	}
 	/*
 	 * zyq_personal2_ajax_获取关注

@@ -90,6 +90,7 @@ public class CommunityService {
 						List<ClassifyPersistence> classifyPersistences = ClassifyHelper.faq2_classify(communityQuestionPersistence.getCLASSIFYID());
 						question_CommunityView.setClassifyName(classifyPersistences.get(0).getFAQCLASSIFYNAME());						
 						question_CommunityView.setCommunityNumber(communityNumber);
+						
 						//zzl_最佳答案专有显示
 						question_CommunityView.setAnswer(list.get(0).getCONTENT());
 						List<CommunityAnswerPersistence> list2 = CommunityAnswerHelper.question_iscurrentAnswer(communityQuestionPersistence.getCOMMUNITYQUESTIONID(), 1);
@@ -370,6 +371,7 @@ public class CommunityService {
 			question2_CommunityView.setSignature(userPersistences.get(0).getUSERSIGNATURE());
 			question2_CommunityView.setUserImage(userPersistences.get(0).getAVATAR());
 			question2_CommunityView.setUserName(userPersistences.get(0).getUSERNAME());
+			question2_CommunityView.setUserId(userPersistences.get(0).getUSERID());
 			
 			question2_CommunityView.setTime(communityAnswerPersistence.getTIME());
 			
@@ -531,5 +533,16 @@ public class CommunityService {
 		communityAnswerPersistence.setISNOTICE(isnotice);
 		//question2回复保存至数据库
 		CommunityAnswerHelper.addComment(communityAnswerPersistence);
+	}
+
+	//将未解决问题添加至问题中心
+	public static void addQuestionToCommunity(String title, String userid, String questionId) {
+		Date date=new Date();
+	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    String time = format.format(date);
+	    //分别为社区问题ID，时间，标题，分类ID，用户ID，浏览量，前台问题ID，是否有答案
+	    CommunityQuestionHelper.addQuestionToCommunity(UUID.randomUUID().toString(),time,title,"00000000-0000-0000-0000-000000000000",userid,"0",questionId,0);
+	    
+		
 	}
 }

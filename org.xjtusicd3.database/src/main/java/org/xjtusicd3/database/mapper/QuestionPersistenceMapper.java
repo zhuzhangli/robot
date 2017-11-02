@@ -4,6 +4,7 @@ package org.xjtusicd3.database.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.xjtusicd3.database.logic.IBaseDao;
@@ -146,5 +147,12 @@ public interface QuestionPersistenceMapper extends IBaseDao<QuestionPersistence,
 	//zzl_记录用户提问记录_查看用户提问是否为faq中的内容_2017年10月22日11:43:43
 	@Select("SELECT * FROM TBL_FAQquestion  WHERE FAQTITLE=#{0}")
 	public List<QuestionPersistence> getFaqQuestion(String comment);
+	
+	//zzl_添加至知识库
+	@Insert("INSERT INTO TBL_FAQquestion(FAQQUESTIONID,FAQTITLE,FAQKEYWORDS,FAQCLASSIFYID,COLLECTION,SCAN,MODIFYTIME,FAQDESCRIPTION,MODIFYNUMBER,FAQSTATE,USERID) "
+			+ "VALUES (#{0},#{1},#{2},#{3},#{4},#{5},#{6},#{7},#{8},#{9},#{10})")
+	public void insertIntoFaqQuestion(String questionid, String title, String keywords,
+			String subspecialCategoryId, String collection, String scan, String time, String description,
+			String modifynumber, String faqstate, String userid);
 	
 }

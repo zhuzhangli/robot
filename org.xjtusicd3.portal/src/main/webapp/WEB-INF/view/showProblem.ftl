@@ -74,34 +74,11 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">对应回复</label>
-
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">${pls.USERSIGNATURE}</p>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">回复时间</label>
-
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">${pls.CREATETIME}</p>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">回复用户</label>
-
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">${pls.AVATAR}</p>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
+                            
                             
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
+                                    <button class="btn btn-primary" ><a href="/org.xjtusicd3.portal/problemindex.html#tab-2">返回</a></button>
                                      
                                 </div>
                             </div>

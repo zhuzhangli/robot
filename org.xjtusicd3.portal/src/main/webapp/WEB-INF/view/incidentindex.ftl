@@ -107,7 +107,7 @@
 						<div class="row row-sm text-center">
 							<div class="col-xs-6">
 								<div class="panel padder-v item">
-									<div class="h1 text-info font-thin h1">0</div>
+									<div class="h1 text-info font-thin h1">${UnresolvedCounts }</div>
 									<span class="text-muted text-xs" style = "color:black">未处理事件总数</span>
 									<div class="top text-right w-full">
 										<i class="fa fa-caret-down text-warning m-r-sm"></i>
@@ -116,7 +116,7 @@
 							</div>
 							<div class="col-xs-6">
 								<div class="panel padder-v item bg-info">
-									<div class="h1 text-fff font-thin h1">1</div>
+									<div class="h1 text-fff font-thin h1">${ResolvedCounts }</div>
 									<span class="text-muted text-xs" >已处理事件总数</span>
 									<div class="top text-right w-full">
 										<i class="fa fa-caret-down text-warning m-r-sm"></i>
@@ -277,7 +277,7 @@
 																		<thead>
 
 																			<tr>
-
+																				<th>序号</th>
 
 																				<th>问题名称</th>
 
@@ -287,7 +287,6 @@
 
 																				<th>操作</th>
 
-																				<th>操作</th>
 
 																				<th>查看问题详情</th>
 
@@ -296,23 +295,17 @@
 																		</thead>
 
 																		<tbody>
-																			<#list userQuestionList as uqlist>
-																			<tr class="">
+																			<#list questionUnresolved as questionUnresolved>
+																			<tr class="" id = "${questionUnresolved.userQuestionId}">
+																				<td>${questionUnresolved_index+1}</td>
+																				<td>${questionUnresolved.userQuestionTitle}</td>
+																				<td>${questionUnresolved.userName}</td>
 
-																				<td>${uqlist.classifyName}</td>
-																				<td>${uqlist.faqTitle}</td>
+																				<td class="center">${questionUnresolved.userQuestionTime}</td>
 
-																				<td class="center">${uqlist.faqKeyWord}</td>
+																				<td><a onclick="addToCommunity()">添加至问题中心</a></td>
 
-
-
-																				<td><a class="faq"
-																					href="/org.xjtusicd3.portal/editUserQuestionInformation.html?u=${uqlist.USERID}">编辑</a></td>
-
-																				<td><a onclick="deleteUserQuestion()">删除</a></td>
-
-																				<td><a class="faq"
-																					href="/org.xjtusicd3.portal/showUserQuestion.html?u=${uqlist.USERID}">查看用户信息</a></td>
+																				<td><a href="/org.xjtusicd3.portal/showUserQuestion.html?q=${questionUnresolved.userQuestionId}">查看问题详情</a></td>
 
 																			</tr>
 																			</#list>
@@ -373,6 +366,7 @@
 																		<thead>
 
 																			<tr>
+																				<th>序号</th>
 
 																				<th>问题名称</th>
 
@@ -380,29 +374,22 @@
 
 																				<th>问题时间</th>
 
-																				<th>操作</th>
-
-																				<th>查看问题详情</th>
+																				<th>查看问题详情>>添加至知识库</th>
 
 																			</tr>
 
 																		</thead>
 
 																		<tbody>
-																			<#list incidentList as incidentview>
-																			<tr class="" id = "${incidentview.userQuestionId}">
+																			<#list questionResolved as questionResolved>
+																			<tr class="" id = "${questionResolved.userQuestionId}">
+																				<td>${questionResolved_index+1}</td>
+																				<td>${questionResolved.userQuestionTitle}</td>
+																				<td>${questionResolved.userName}</td>
 
-																				<td>${incidentview.userQuestionTitle}</td>
-																				<td>${incidentview.userName}</td>
+																				<td class="center">${questionResolved.userQuestionTime}</td>
 
-																				<td class="center">${incidentview.userQuestionTime}</td>
-
-																		
-
-																				<td><a onclick="deleteUserQuestion()">删除</a></td>
-
-																				<td><a class="userinfo"
-																					href="/org.xjtusicd3.portal/showUserQuestion.html?u=${incidentview.userQuestionId}">查看事件信息</a></td>
+																				<td><a href="/org.xjtusicd3.portal/showUserQuestion2.html?q=${questionResolved.userQuestionId}">查看问题详情</a></td>
 
 																			</tr>
 																			</#list>

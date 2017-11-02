@@ -275,7 +275,7 @@
 									<div class="answerer">
 										<img class="answerImg" src="${answerList_best.userImage}">
 										<div class="answer_name">
-											<a href="personal2.html?userid=270369">
+											<a href="personal2.html?u=${answerList_best.userId}">
 												<span class="user_name">${answerList_best.userName}</span>
 													&nbsp;&nbsp;<span>${answerList_best.signature}</span>
 											</a>
@@ -369,7 +369,7 @@
 									<div class="answerer">
 										<img class="answerImg" src="${answerList_other.userImage}">
 										<div class="answer_name">
-											<a href="personal2.html?userid=270369">
+											<a href="personal2.html?u=${answerList_other.userId}">
 												<span class="user_name">${answerList_other.userName}</span>
 													&nbsp;&nbsp;<span>${answerList_other.signature}</span>
 											</a>
@@ -464,7 +464,7 @@
 										<div class="answerer">
 											<img class="answerImg" src="${answerList_other.userImage}">
 											<div class="answer_name">
-												<a href="personal2.html?userid=270369">
+												<a href="personal2.html?u=${answerList_other.userId}">
 													<span class="user_name">${answerList_other.userName}</span>
 														&nbsp;&nbsp;<span>${answerList_other.signature}</span>
 												</a>
@@ -555,7 +555,7 @@
 										<div class="answerer">
 											<img class="answerImg" src="${answerList_other.userImage}">
 											<div class="answer_name">
-												<a href="personal2.html?userid=270369">
+												<a href="personal2.html?u=${answerList_other.userId}">
 													<span class="user_name">${answerList_other.userName}</span>
 														&nbsp;&nbsp;<span>${answerList_other.signature}</span>
 												</a>
@@ -677,12 +677,9 @@
 				</div>
 				
 				<ul id="relatedQuestion">
-					<li></li>
-					<li><a data-qid="10650" href="detail.html?qid=10650">数字小键盘&nbsp;开机输入密码的时候能用，开机以后不能用&nbsp;可以控制上下左右，numlock亮也不能用，修改regedit那个和键盘有关的数值等于2也不管用，该怎么能啊？</a></li>
-					<li><a data-qid="11167" href="detail.html?qid=11167">昭阳k2450&nbsp;i5&nbsp;如何开启“虚拟化”？在bios下没有看到相应的选项</a></li>
-					<li><a data-qid="36333" href="detail.html?qid=36333">联想U410,bios始终进不去，不管用什么方式，看到bios选项点击还是进入windows，只能找售后么？</a></li>
-					<li><a data-qid="27163" href="detail.html?qid=27163">开机自动开启小键盘</a></li>
-					<li><a data-qid="36332" href="detail.html?qid=36332">联想U410,bios始终进不去，不管用什么方式，看到bios选项点击还是进入windows，只能找售后么？</a></li>
+					<#list similarQuestion as a>
+					<li><a data-qid="10650" href="question2.html?q=${a.COMMUNITYQUESTIONID }">${a.TITLE}</a></li>
+					</#list>
 				</ul>
 			</div>
 			<!-- 右侧相关问题 end -->

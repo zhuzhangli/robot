@@ -22,7 +22,7 @@ $(document).ready(function(){
   var press = $("#me").val();
   if (press!="" || press!=null){
   var emailtxt = "";   
-  var emailvar = new Array("@qq.com","@163.com","@126.com","@yahoo.com","@sina.com","@gmail.com","@hotmail.com","@foxmail.com","@sohu.com");
+ // var emailvar = new Array("@qq.com","@163.com","@126.com","@yahoo.com","@sina.com","@gmail.com","@hotmail.com","@foxmail.com","@sohu.com");
   totalid = emailvar.length;
    var emailmy = "<div class='newemail' style='width:84%; color:#6B6B6B; overflow:hidden;'><font color='#D33022'>" + press + "</font></div>";
    if(!(isEmail(press))){
@@ -74,7 +74,7 @@ $(document).ready(function(){
  var newhtml = $(this).html();
  newhtml = newhtml.replace(/<.*?>/g,"");
  $("#me").val(newhtml);
- _email2();
+ //_email2();
  $("#myemail").remove();
  })
  $(document).bind("keydown",function(e)
@@ -127,21 +127,21 @@ function isEmail(str){
  }
 }
 
-function _email2() {
-    var x = document.getElementById("me").value;
-    var na = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
-	if($("#me").val()!=""){
-		if(!(na.test($("#me").val()))){
-			$(".spa1").text("请仔细检查您的邮箱");
-			return false;
-		}else if(na){
-			$(".spa1").text("");
-			return true;
-		}
-	}else{
-		$(".spa1").text("");
-	}
-}
+//function _email2() {
+//    var x = document.getElementById("me").value;
+//    var na = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+//	if($("#me").val()!=""){
+//		if(!(na.test($("#me").val()))){
+//			$(".spa1").text("请仔细检查您的邮箱");
+//			return false;
+//		}else if(na){
+//			$(".spa1").text("");
+//			return true;
+//		}
+//	}else{
+//		$(".spa1").text("");
+//	}
+//}
 //function _password2(){
 //	if($("#password").val()!=""){
 //		var pw = /^\w{6,16}$/;
@@ -253,22 +253,22 @@ $("input").focus(function(){
 	})
 })
 $("#register").click(function(){
-	var na = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+	//var na = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
 	var us = /^\w{2,10}$/;
 	var pw = /^\w{6,16}$/;
 	var rpw = $("#repassword").val();
-	if(na.test($("#me").val())&&us.test($("#user").val())&&pw.test($("#password").val())&&(rpw==($("#password").val()))){
+	if(us.test($("#user").val())&&pw.test($("#password").val())&&(rpw==($("#password").val()))){
 		$.ajax({
 			type:"POST",
 			url:"/org.xjtusicd3.partner/saveRegister.html",
 			data:{
-				"email":$("#me").val(),
+				"name":$("#me").val(),
 				"password":$("#password").val()
 			},
 			dataType:"json",
 			success:function(data){
 				if(data=="1"){
-					$(".spa1").text('该邮箱已被注册');
+					$(".spa1").text('该用户名已被注册');
 				}else if(data=="2"){
 					$(".spa1").text('该邮箱还未验证');
 				}else{
@@ -281,7 +281,7 @@ $("#register").click(function(){
 		return true;
 	}else{
 		if($("#me").val()==""){
-			$(".spa1").text('请填写注册的邮箱');
+			$(".spa1").text('请填写注册的用户名');
 		}
 		if($("#user").val()==""){
 			$(".spa2").text('请填写用户名');

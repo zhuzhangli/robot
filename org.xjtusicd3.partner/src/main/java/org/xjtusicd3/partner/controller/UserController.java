@@ -53,39 +53,46 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value={"/saveRegister"},method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="text/plain;charset=UTF-8")
 	public String registerlist(HttpServletRequest request,HttpServletResponse response) throws NoSuchAlgorithmException, UnsupportedEncodingException{
-		String email = request.getParameter("email");
+		String name = request.getParameter("name");
 		String password = request.getParameter("password");
-		//判断邮箱是否被注册
-		List<UserPersistence> list = UserHelper.getEmail(email);
+		//判断用户名是否被注册
+		//List<UserPersistence> list = UserHelper.getEmail(email);
+		List<UserPersistence> list = UserHelper.getName(name);
+		
+		/*
+		 * list.size()==0 用户未注册
+		 */
 		if (list.size()==0) {
-			UserService.login_register(email, password);
+			UserService.login_register(name, password);
 			return "0";
 		}else {
-			if (UserService.isLogin(email, password)==false) {
-				if (UserService.validateUserState(email)==false) {
-					if (UserService.validateEmail(email)==true) {
-						return "1";
-					}else {
-						UserHelper.deleteUser(email);
-						UserService.login_register(email, password);
-						return "0";
-					}
-				}else {
-					return "1";
-				}
-			}else {
-				if (UserService.validateUserState(email)==false) {
-					if (UserService.validateEmail(email)==true) {
-						return "2";
-					}else {
-						UserHelper.deleteUser(email);
-						UserService.login_register(email, password);
-						return "0";
-					}
-				}else {
-					return "1";
-				}
-			}
+			return "1";
+//			
+//			if (UserService.isLogin(email, password)==false) {
+//				if (UserService.validateUserState(email)==false) {
+//					if (UserService.validateEmail(email)==true) {
+//						return "1";
+//					}else {
+//						UserHelper.deleteUser(email);
+//						UserService.login_register(email, password);
+//						return "0";
+//					}
+//				}else {
+//					return "1";
+//				}
+//			}else {
+//				if (UserService.validateUserState(email)==false) {
+//					if (UserService.validateEmail(email)==true) {
+//						return "2";
+//					}else {
+//						UserHelper.deleteUser(email);
+//						UserService.login_register(email, password);
+//						return "0";
+//					}
+//				}else {
+//					return "1";
+//				}
+//			}
 		}
 	}
 	/*
@@ -361,7 +368,8 @@ public class UserController {
 				mv.addObject("IsMy", "0");
 				//zzl_查看关注列表
 				List<PayPersistence> payPersistences = PayHelper.getpayList(userId,u);
-				List<Personal2_indexList> lists = UserService.personal2_indexList(username);
+				List<UserPersistence> toUserName = UserHelper.getUserNameById(u);
+				List<Personal2_indexList> lists = UserService.personal2_indexList(toUserName.get(0).getUSERNAME());
 				mv.addObject("indexList", lists);
 				mv.addObject("indexListSize", lists.size());
 				if (payPersistences.size()==0) {
@@ -449,9 +457,13 @@ public class UserController {
 		}else{
 			List<UserPersistence> userPersistences = UserHelper.getUserInfo(username);
 			String userId = userPersistences.get(0).getUSERID();
+			System.out.println("关注用户"+userId);
+			System.out.println("被关注用户"+touserId);
 			List<PayPersistence> payPersistences = PayHelper.getpayList(userId, touserId);
+			System.out.println("guanzhu:"+payPersistences.size());
 			if (payPersistences.size()!=0) {
 				PayHelper.deletePay(userId,touserId);
+				System.out.println("shanchuchenggogn");
 			}
 			jsonObject.put("value", "1");
 			String result = JsonUtil.toJsonString(jsonObject); 

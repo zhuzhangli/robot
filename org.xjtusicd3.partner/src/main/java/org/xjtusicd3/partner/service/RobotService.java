@@ -41,6 +41,7 @@ public class RobotService {
 			System.out.println("机器人提问问题号："+robot_Chats.get(0).getQuestionId());
 			robot_Chat.setQuestionId(robot_Chats.get(0).getQuestionId());
 			List<AnswerPersistence> answerPersistences = AnswerHelper.faq3_faqContent(robot_Chats.get(0).getQuestionId());
+			robot_Chat.setAnswerId(answerPersistences.get(0).getFAQANSWERID());
 			robot_Chat.setAnswer(answerPersistences.get(0).getFAQCONTENT());
 			list.add(robot_Chat);
 		}else if (robot_Chats.size()>6) {
@@ -50,9 +51,11 @@ public class RobotService {
 					robot_Chat robot_Chat = new robot_Chat();
 					robot_Chat.setQuestionId(robot_Chats.get(0).getQuestionId());
 					List<AnswerPersistence> answerPersistences = AnswerHelper.faq3_faqContent(robot_Chats.get(0).getQuestionId());
+					robot_Chat.setAnswerId(answerPersistences.get(0).getFAQANSWERID());
 					robot_Chat.setAnswer(answerPersistences.get(0).getFAQCONTENT());
 					list.add(robot_Chat);
 				}else {
+					//其余内容做推送
 					robot_Chat robot_Chat = new robot_Chat();
 					robot_Chat.setQuestionId(robot_Chats.get(i).getQuestionId());
 					System.out.println("robot_Chats.get(i).getQuestionId():"+robot_Chats.get(i).getQuestionId());

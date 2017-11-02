@@ -148,6 +148,10 @@ public class CommunityController {
 		//获取具体问题的分类信息
 		List<ClassifyPersistence> classifyPersistences = ClassifyHelper.faq2_classify(communityQuestionPersistences.get(0).getCLASSIFYID());
 		
+		//相关问题
+		List<CommunityQuestionPersistence> similarQuestion = CommunityQuestionHelper.selectQuestionByClassifyId(classifyPersistences.get(0).getFAQCLASSIFYID());
+		
+		
 		//判断有无最佳答案
 		List<Question2_CommunityView> question2_CommunityViews = CommunityService.question2_CommunityViews_best(username,communityQuestionPersistences.get(0).getCOMMUNITYQUESTIONID());
 		//System.out.println("有无最佳答案:"+question2_CommunityViews.size());
@@ -179,6 +183,8 @@ public class CommunityController {
 				}
 			}
 		}
+		//相关问题的similarQuestion
+		mv.addObject("similarQuestion", similarQuestion);
 		mv.addObject("answerList_best", question2_CommunityViews);
 		mv.addObject("answerList_other", question2_CommunityViews2);
 		mv.addObject("userList", userPersistences);

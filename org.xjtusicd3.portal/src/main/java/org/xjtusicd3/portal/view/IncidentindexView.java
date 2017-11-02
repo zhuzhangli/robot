@@ -6,6 +6,8 @@ public class IncidentindexView
 	private String userName;
 	private String userQuestionTime;
 	private String UserQuestionId;
+	private String faqAnswer; //zzl_已处理问题对应的答案
+		
 	public String getUserQuestionId()
 	{
 		return UserQuestionId;
@@ -34,6 +36,12 @@ public class IncidentindexView
 	}
 	public void setUserQuestionTime(String userQuestionTime) {
 		this.userQuestionTime = userQuestionTime;
+	}
+	public String getFaqAnswer() {
+		return faqAnswer;
+	}
+	public void setFaqAnswer(String faqAnswer) {
+		this.faqAnswer = faqAnswer;
 	}
 	
 }

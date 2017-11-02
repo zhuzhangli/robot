@@ -3,6 +3,7 @@ package org.xjtusicd3.database.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.xjtusicd3.database.logic.IBaseDao;
 import org.xjtusicd3.database.model.PayPersistence;
@@ -23,7 +24,7 @@ public interface PayPersistenceMapper extends IBaseDao<PayPersistence, String>{
 	 * zyq_personal2_查看关注列表
 	 */
 	@Select("SELECT * FROM TBL_Pay WHERE PAYUSERID=#{0} AND BEPAYUSERID=#{1}")
-	List<PayPersistence> getpayList(String username, String touserId);
+	List<PayPersistence> getpayList(String userId, String touserId);
 	/*
 	 * zyq_personal2_取消关注
 	 */
@@ -38,5 +39,9 @@ public interface PayPersistenceMapper extends IBaseDao<PayPersistence, String>{
 	List<PayPersistence> payList_time_Limit(String userid, String time,int startNumber,int number);
 	@Select("SELECT * FROM TBL_Pay WHERE PAYUSERID=#{0} AND STR_TO_DATE(TIME,'%Y-%m-%d %H:%i:%s')>STR_TO_DATE(#{1},'%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(TIME,'%Y-%m-%d %H:%i')>STR_TO_DATE(#{4},'%Y-%m-%d %H:%i') ORDER BY TIME DESC LIMIT #{2},#{3}")
 	List<PayPersistence> payList_time_Limit_Time(String userid, String time,int startNumber,int number,String time2);
+	
+	//关注
+	@Insert("INSERT INTO TBL_Pay(PAYID,PAYUSERID,BEPAYUSERID,TIME) VALUES (#{0},#{1},#{2},#{3})")
+	void savePay(String payId, String userId, String touserId, String time);
 	
 }

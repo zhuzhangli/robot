@@ -164,6 +164,26 @@ public class CommunityQuestionHelper{
 		session.close();
 		return list;
 	}
+	
+	//相关问题_2017年10月31日01:26:58
+	public static List<CommunityQuestionPersistence> selectQuestionByClassifyId(String faqclassifyid) {
+		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+		CommunityQuestionPersistenceMapper mapper = session.getMapper(CommunityQuestionPersistenceMapper.class);
+		List<CommunityQuestionPersistence> list = mapper.selectQuestionByClassifyId(faqclassifyid);
+		session.close();
+		return list;
+	}
+	
+	//将未解决问题添加至问题中心
+	//分别为社区问题ID，时间，标题，分类ID，用户ID，浏览量，前台问题ID，是否有答案
+	public static void addQuestionToCommunity(String communityQuestionid, String time, String title, String faqclassifyid, String userid,
+			String scan, String questionId, int isanswer) {
+		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+		CommunityQuestionPersistenceMapper mapper = session.getMapper(CommunityQuestionPersistenceMapper.class);
+		mapper.addQuestionToCommunity(communityQuestionid, time, title, faqclassifyid,  userid,scan, questionId, isanswer);
+		session.close();
+		
+	}
 		
 	
 }

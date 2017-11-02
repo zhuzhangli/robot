@@ -62,7 +62,7 @@
                             
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
+                                    <button class="btn btn-primary" "><a href="/org.xjtusicd3.portal/incidentindex.html#tab-2">返回</a></button>
                                      
                                 </div>
                             </div>

@@ -75,17 +75,17 @@
 
 
 	<div id="myModal" class="reveal-modal">			
-		<h1>邮箱需要验证</h1>
+		<h1>用户名需要验证</h1>
 		<br/>			
-		<p>请在5分钟之内，登录您的邮箱进行验证。</p>			
+		<p>已通知管理员，管理员验证后可进行登录</p>			
 		<a class="close-reveal-modal" id="cancelModal">&#215;</a>
 	</div>
 	<div class="reveal-modal-bg" id="modal_bg" style="display: display; cursor: pointer;"></div>
 	
 	<script src="js/jquery-1.6.2.js"></script>
-	<!--  
+ <!--  
+	<script src="zhao/login_register/login_emaiautocomplete/emailAutoComplete2.js"></script>-->
 	<script src="zhao/login_register/login_emaiautocomplete/emailAutoComplete.js"></script>
-	<script src="zhao/login_register/login_emaiautocomplete/emailAutoComplete2.js"></script> -->
 	<script src="js/login_bg/cav.js"></script>
 	<script src="js/login_bg/getStart.js"></script>
 	<script src="zhao/login_register/index.js"></script>

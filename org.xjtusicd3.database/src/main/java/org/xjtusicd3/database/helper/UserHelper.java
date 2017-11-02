@@ -16,10 +16,10 @@ public class UserHelper {
 	/*
 	 * zyq_login_ajax_注册
 	 */
-	public static void login_register(String userid,String email,String password,String username,int userstate,String identification_number,String time_stamp,String userimage){
+	public static void login_register(String userid,String name,String password,int userstate,String createTime,String userimage){
 		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
 		UserPersistenceMapper mapper = session.getMapper(UserPersistenceMapper.class);
-		mapper.login_register(userid, email, password, username, userstate, identification_number,time_stamp,userimage);
+		mapper.login_register(userid, name, password, userstate, createTime,userimage);
 		session.close();
 	}
 	//zyq_校验邮箱是否被注册
@@ -30,6 +30,22 @@ public class UserHelper {
 		session.close();
 		return list;
 	}
+	
+	/**
+	 * author:zzl
+	 * abstract:判断用户名是否被注册
+	 * data:2017年10月30日12:41:49
+	 */
+	public static List<UserPersistence> getName(String name) {
+		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+		UserPersistenceMapper mapper = session.getMapper(UserPersistenceMapper.class);
+		List<UserPersistence> list = mapper.getName(name);
+		session.close();
+		return list;
+	}
+	
+	
+	
 	public static List<UserPersistence> getEmail_name(String username){
 		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
 		UserPersistenceMapper mapper = session.getMapper(UserPersistenceMapper.class);
@@ -255,6 +271,7 @@ public class UserHelper {
 		session.close();
 		return list;
 	}
+	
 
 
 }

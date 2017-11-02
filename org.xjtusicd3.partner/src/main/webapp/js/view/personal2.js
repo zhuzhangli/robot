@@ -24,6 +24,7 @@
 						type:"POST",
 						url:"/org.xjtusicd3.partner/savePay.html",
 						data:{
+							"userId":userId,
 							"touserId":touserId
 						},
 						dataType:"json",

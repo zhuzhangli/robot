@@ -45,4 +45,16 @@ public class UserQuestionService {
 
 	}
 
+	public static String queationUserId(String username, String comment) {
+		String userId;
+		if(username == null){
+			userId = "00000000-0000-0000-0000-000000000000";
+		}else {
+			List<UserPersistence> list = UserHelper.getUserInfo(username);
+			userId = list.get(0).getUSERID();
+		}
+		String questionId = UserQuestionHelper.queationUserId(userId,comment);
+		return questionId;
+	}
+
 }

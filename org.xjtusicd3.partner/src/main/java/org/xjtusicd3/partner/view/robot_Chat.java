@@ -3,8 +3,19 @@ package org.xjtusicd3.partner.view;
 public class robot_Chat {
 	private String questionId;
 	private String question;
+	
 	private String answer;
 	private double value;
+	
+	private String answerId;
+	
+	
+	public String getAnswerId() {
+		return answerId;
+	}
+	public void setAnswerId(String answerId) {
+		this.answerId = answerId;
+	}
 	public String getQuestionId() {
 		return questionId;
 	}

@@ -11,7 +11,7 @@ public interface CommunityAnswerPersistenceMapper extends IBaseDao<CommunityAnsw
 	/*
 	 * zyq_question_问题展示
 	 */
-	@Select("SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0} ORDER BY TIME ASC")
+	@Select("SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0} AND ISBESTANSWER='1'")
 	List<CommunityAnswerPersistence> question_CommunityAnswer(String communityquestionId);
 	
 	/*
@@ -66,5 +66,11 @@ public interface CommunityAnswerPersistenceMapper extends IBaseDao<CommunityAnsw
 	 */
 	@Select("SELECT * FROM TBL_CommunityAnswer WHERE USERID=#{0} ORDER BY TIME DESC LIMIT #{1},#{2}")
 	List<CommunityAnswerPersistence> personal2_ReplyCommunity(String userId,int startNumber,int number);
+	
+	//查询社区回复者信息
+	@Select("SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0} AND ISBESTANSWER = 1")
+	List<CommunityAnswerPersistence> getBestAnswer(String communityquestionid);
+	
+
 	
 }

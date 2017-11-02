@@ -321,4 +321,28 @@ public class QuestionHelper {
 		session.close();
 		return list;
 	}
+	
+	/**
+	 * 添加到知识库
+	 * @param questionid
+	 * @param title
+	 * @param keywords
+	 * @param subspecialCategoryId
+	 * @param string
+	 * @param string2
+	 * @param time
+	 * @param description
+	 * @param string3
+	 * @param string4
+	 * @param userid
+	 */
+	public static void insertIntoFaqQuestion(String questionid, String title, String keywords,
+			String subspecialCategoryId, String collection, String scan, String time, String description, String modifynumber,
+			String faqstate, String userid) {
+		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+		QuestionPersistenceMapper mapper = session.getMapper(QuestionPersistenceMapper.class);
+		mapper.insertIntoFaqQuestion(questionid, title,  keywords,subspecialCategoryId, collection, scan,  time,  description, modifynumber ,faqstate, userid);
+		session.close();
+		
+	}
 }

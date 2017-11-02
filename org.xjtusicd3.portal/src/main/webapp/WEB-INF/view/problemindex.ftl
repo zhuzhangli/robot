@@ -109,7 +109,7 @@
 						<div class="row row-sm text-center">
 							<div class="col-xs-6">
 								<div class="panel padder-v item">
-									<div class="h1 text-info font-thin h1">0</div>
+									<div class="h1 text-info font-thin h1">${ unResolvedCounts}</div>
 									<span class="text-muted text-xs">未处理问题</span>
 									<div class="top text-right w-full">
 										<i class="fa fa-caret-down text-warning m-r-sm"></i>
@@ -118,7 +118,7 @@
 							</div>
 							<div class="col-xs-6">
 								<div class="panel padder-v item bg-info">
-									<div class="h1 text-fff font-thin h1">8</div>
+									<div class="h1 text-fff font-thin h1">${ resolvedCounts}</div>
 									<span class="text-muted text-xs">已处理问题</span>
 									<div class="top text-right w-full">
 										<i class="fa fa-caret-down text-warning m-r-sm"></i>
@@ -315,7 +315,7 @@
 
 															 
 
-																				<td><a onclick="deleteUser()">删除</a></td>
+																				<td><a onclick="">删除</a></td>
 
 																				<td><a class="faq"
 																					href="/org.xjtusicd3.portal/showProblem.html?u=${cqlist.problemId}">查看问题详情</a></td>
@@ -388,9 +388,9 @@
 
 																				<th>提问时间</th>
 
-																				<th>操作</th>
+																				<th>最佳答案</th>
 
-																				<th>操作</th>
+																				<th>回复用户</th>
 																				
 																				<th>操作</th>
 
@@ -411,10 +411,9 @@
 
 																				<td class="center">${cqlist.problemTime}</td>
 
-																				<td><a class="faq"
-																					href="/org.xjtusicd3.portal/editUserInformation.html?u=${communityquestionlist.USERID}">编辑</a></td>
+																				<td class="center">${cqlist.problemAnswer}</td>
 
-																				<td><a onclick="deleteUser()">删除</a></td>
+																				<td class="center">${cqlist.problemAnswerUser}</td>
 
 																				<td><a onclick="addProblemtoFAQ()">加入至FAQ</a></td>
 

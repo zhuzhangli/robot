@@ -91,4 +91,11 @@ public class PayHelper {
 		session.close();
 		return list;
 	}
+	public static void savePay(String payId, String userId, String touserId, String time) {
+		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+		PayPersistenceMapper mapper = session.getMapper(PayPersistenceMapper.class);
+		mapper.savePay(payId, userId,  touserId,  time);
+		session.close();
+		
+	}
 }

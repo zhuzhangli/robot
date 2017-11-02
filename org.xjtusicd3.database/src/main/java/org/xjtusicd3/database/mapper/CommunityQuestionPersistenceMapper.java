@@ -91,4 +91,14 @@ public interface CommunityQuestionPersistenceMapper extends IBaseDao<CommunityQu
 	
 	@Select("SELECT * FROM TBL_CommunityQuestion WHERE COMMUNITYQUESTIONID=#{0} ORDER BY TIME ASC")
 	List<CommunityQuestionPersistence> CommunityQuestion(String questionId);
+	
+	//相关问题_2017年10月31日01:26:58
+	@Select("SELECT * FROM TBL_CommunityQuestion WHERE CLASSIFYID=#{0} ORDER BY TIME ASC LIMIT 5")
+	List<CommunityQuestionPersistence> selectQuestionByClassifyId(String faqclassifyid);
+	
+	//将未解决问题添加至问题中心
+		//分别为社区问题ID，时间，标题，分类ID，用户ID，浏览量，前台问题ID，是否有答案
+	@Insert("INSERT INTO TBL_CommunityQuestion(COMMUNITYQUESTIONID,TIME,TITLE,CLASSIFYID,USERID,SCAN,USERQUESTIONID,ISANSWER) VALUES (#{0},#{1},#{2},#{3},#{4},#{5},#{6},#{7})")
+	void addQuestionToCommunity(String communityQuestionid, String time, String title, String faqclassifyid,
+			String userid, String scan, String questionId, int isanswer);
 } 

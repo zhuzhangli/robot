@@ -90,8 +90,7 @@
 								<div class="answerer" data-id="270369">
 									<img class="answerImg" src="${communityViews.userImage}">
 									<div>
-										<a href="">
-											<span class="user_name">${communityViews.userName}</span>
+										<a href="personal2.html?u=${communityViews.userId}"><span class="user_name">${communityViews.userName}</span>
 												&nbsp;&nbsp;<span>${communityViews.signature}</span>
 										</a>
 									</div>

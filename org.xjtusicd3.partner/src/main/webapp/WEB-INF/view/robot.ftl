@@ -130,6 +130,7 @@
 							                <!-- 自动问答提问区 begin -->
 						                	<div class="chat02">
 						                    	<div class="chat02_title">
+						                        	<!--  
 						                        	<a class="chat02_title_btn ctb01" href="javascript:;"></a>
 						                        	<a class="chat02_title_btn ctb02" href="javascript:;" title="选择文件">
 						                            	<embed width="15" height="16" flashvars="swfid=2556975203&amp;maxSumSize=50&amp;maxFileSize=50&amp;maxFileNum=1&amp;multiSelect=0&amp;uploadAPI=http%3A%2F%2Fupload.api.weibo.com%2F2%2Fmss%2Fupload.json%3Fsource%3D209678993%26tuid%3D1887188824&amp;initFun=STK.webim.ui.chatWindow.msgToolBar.upload.initFun&amp;sucFun=STK.webim.ui.chatWindow.msgToolBar.upload.sucFun&amp;errFun=STK.webim.ui.chatWindow.msgToolBar.upload.errFun&amp;beginFun=STK.webim.ui.chatWindow.msgToolBar.upload.beginFun&amp;showTipFun=STK.webim.ui.chatWindow.msgToolBar.upload.showTipFun&amp;hiddenTipFun=STK.webim.ui.chatWindow.msgToolBar.upload.hiddenTipFun&amp;areaInfo=0-16|12-16&amp;fExt=*.jpg;*.gif;*.jpeg;*.png|*&amp;fExtDec=选择图片|选择文件"
@@ -143,6 +144,7 @@
 						                                scale="noScale" menu="false" type="application/x-shockwave-flash" src="http://service.weibo.com/staticjs/tools/upload.swf?v=36c9997f1313d1c4"
 						                                id="swf_3140">
 						                        	</a>
+						                        	-->
 						                    	</div>
 							                    <div class="chat02_content">
 							                        <textarea id="textarea"></textarea>

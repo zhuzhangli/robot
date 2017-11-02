@@ -22,7 +22,7 @@
     <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"> </script>
     <script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>
     <script src="zhao/tankuang/js/modernizr.custom.js"></script>
-
+	
 </head>
 <body>
 	<!-- 头部开始 -->

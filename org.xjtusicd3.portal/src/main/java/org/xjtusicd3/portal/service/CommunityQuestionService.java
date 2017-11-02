@@ -6,10 +6,12 @@ import java.util.List;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.xjtusicd3.database.helper.AnswerHelper;
 import org.xjtusicd3.database.helper.ClassifyHelper;
+import org.xjtusicd3.database.helper.CommunityAnswerHelper;
 import org.xjtusicd3.database.helper.CommunityQuestionHelper;
 import org.xjtusicd3.database.helper.UserHelper;
 import org.xjtusicd3.database.model.AnswerPersistence;
 import org.xjtusicd3.database.model.ClassifyPersistence;
+import org.xjtusicd3.database.model.CommunityAnswerPersistence;
 import org.xjtusicd3.database.model.CommunityQuestionPersistence;
 import org.xjtusicd3.database.model.UserPersistence;
 import org.xjtusicd3.portal.view.ProblemindexView;
@@ -44,6 +46,13 @@ public class CommunityQuestionService {
 			//zzl_2017年10月11日15:29:41
 			problemindexView.setIsanswer(communityQuestionPersistence.getISANSWER());
 			System.out.println("Isanswer:"+communityQuestionPersistence.getISANSWER());
+			
+			//查询社区回复者信息
+			List<CommunityAnswerPersistence> communityAnswerPersistences = CommunityAnswerHelper.getBestAnswer(communityQuestionPersistence.getCOMMUNITYQUESTIONID());
+			problemindexView.setProblemAnswer(communityAnswerPersistences.get(0).getCONTENT());
+			problemindexView.setProblemAnswerId(communityAnswerPersistences.get(0).getCOMMUNITYANSWERID());
+			List<UserPersistence> ulist = UserHelper.getUserNameById(communityAnswerPersistences.get(0).getUSERID());
+			problemindexView.setProblemAnswerUser(ulist.get(0).getUSERNAME());			
 			problemindexViews.add(problemindexView);
 		}
 		return problemindexViews;
@@ -67,6 +76,18 @@ public class CommunityQuestionService {
 			 
 			problemindexView.setProblemTime(communityQuestionPersistence.getTIME());
 			problemindexView.setProblemContent(communityQuestionPersistence.getCONTENT());
+			
+			//获取最佳答案信息
+			List<CommunityAnswerPersistence> communityAnswerPersistences = CommunityAnswerHelper.getBestAnswer(communityProblemId);
+			if (communityAnswerPersistences.size()>0) {
+				System.out.println("答案内容："+communityAnswerPersistences.size());
+				problemindexView.setProblemAnswer(communityAnswerPersistences.get(0).getCONTENT());
+				problemindexView.setProblemAnswerTime(communityAnswerPersistences.get(0).getTIME());
+				List<UserPersistence> ulist = UserHelper.getUserNameById(communityAnswerPersistences.get(0).getUSERID());
+				problemindexView.setProblemAnswerUser(ulist.get(0).getUSERNAME());
+			}
+			
+		
 			problemindexViews.add(problemindexView);
 		}
 		return problemindexViews;

@@ -122,5 +122,16 @@ public class CommunityAnswerHelper{
 		session.close();
 		return list;
 	}
+	
+	//查询社区回复者信息
+	public static List<CommunityAnswerPersistence> getBestAnswer(String communityquestionid) {
+		SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+		CommunityAnswerPersistenceMapper mapper = session.getMapper(CommunityAnswerPersistenceMapper.class);
+		List<CommunityAnswerPersistence> list = mapper.getBestAnswer(communityquestionid);
+		session.close();
+		return list;
+	}
+	
+	
 
 }

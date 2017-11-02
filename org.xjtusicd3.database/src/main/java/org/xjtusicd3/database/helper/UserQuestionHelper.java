@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.xjtusicd3.database.logic.SqlSessionManager;
+import org.xjtusicd3.database.mapper.RobotAnswerPersistenceMapper;
 import org.xjtusicd3.database.mapper.UserPersistenceMapper;
 import org.xjtusicd3.database.mapper.UserQuestionPersistenceMapper;
 import org.xjtusicd3.database.model.ClassifyPersistence;
+import org.xjtusicd3.database.model.RobotAnswerPersistence;
 import org.xjtusicd3.database.model.UserPersistence;
 import org.xjtusicd3.database.model.UserQuestionPersistence;
 
@@ -57,6 +59,51 @@ public class UserQuestionHelper
 			mapper.addUserQuestion(userQuestionId,userQuestionTitle,time,isFaq,userId);
 			session.close();
 			
+		}
+		
+		//获取用户提问问题Id
+		public static String queationUserId(String userId, String comment) {
+			SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+			UserQuestionPersistenceMapper mapper = session.getMapper(UserQuestionPersistenceMapper.class);
+			String questionId = mapper.queationUserId(userId, comment);
+			session.close();
+			return questionId;
+		}
+		
+		//用户满意度问答表
+		public static void addUserSaticfaction(String robotAnswerId, int saticfaction, String questionId, String answerId) {
+			SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+			RobotAnswerPersistenceMapper mapper = session.getMapper(RobotAnswerPersistenceMapper.class);
+			mapper.addUserSaticfaction(robotAnswerId,saticfaction,questionId,answerId);
+			session.close();
+			
+		}
+		
+		//查看用户提问问题标题
+		public static String getNameById(String questionId) {
+			SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+			UserQuestionPersistenceMapper mapper = session.getMapper(UserQuestionPersistenceMapper.class);
+			String title = mapper.getNameById(questionId);
+			session.close();
+			return title;
+		}
+		
+		//获得用户满意度
+		public static List<RobotAnswerPersistence> getUserSaticfaction(String userquestionid) {
+			SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+			UserQuestionPersistenceMapper mapper = session.getMapper(UserQuestionPersistenceMapper.class);
+			List<RobotAnswerPersistence> saticfaction = mapper.getUserSaticfaction(userquestionid);
+			session.close();
+			return saticfaction;
+		}
+		
+		//获取应答表中问题对应的知识库答案id
+		public static String getFaqAnswerIdByQuestionId(String userQuestionId) {
+			SqlSession session = SqlSessionManager.getSqlSessionFactory().openSession(true);
+			UserQuestionPersistenceMapper mapper = session.getMapper(UserQuestionPersistenceMapper.class);
+			String faqAnswerId = mapper.getFaqAnswerIdByQuestionId(userQuestionId);
+			session.close();
+			return faqAnswerId;
 		}
 	
 }
